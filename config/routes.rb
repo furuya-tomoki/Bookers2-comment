@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get "home/about" => "homes#about"
 
   resources :books, only: [:index, :show, :edit, :create, :destroy, :update] do
+    # resources = indexからdestroyまでの7つのルーティングが定義
     resource :favorites, only: [:create, :destroy]
     resources :book_comments, only: [:create, :destroy]
   end

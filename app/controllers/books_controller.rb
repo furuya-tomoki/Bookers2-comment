@@ -4,20 +4,31 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.find(params[:id])
+    # id=1のデータをfindメソッドを利用してデータベースから取得し、@bookへ格納
     @book_comment = BookComment.new
+    # 空のインスタンスをView = 「form_with」に渡す
   end
 
   def index
     @books = Book.all
+    # Bookモデル内のすべての投稿記事データを取得
     @book = Book.new
+    # 空のインスタンスをView = 「form_with」に渡す
+
   end
 
   def create
     @book = Book.new(book_params)
+    # １. データを新規登録するためのインスタンス作成
     @book.user_id = current_user.id
     if @book.save
+    # ２. データをデータベースに保存するためのsaveメソッド実行
+    # if = 正常に保存できた場合実行
       redirect_to book_path(@book), notice: "You have created book successfully."
+      # 実行後のリダイレクト先を指定
+      # notice = メッセージ表示
     else
+      # else = 実行できなかった場合の処理
       @books = Book.all
       render 'index'
     end
@@ -40,9 +51,13 @@ class BooksController < ApplicationController
   end
 
   private
+  # ここから下はcontrollerの中でしか呼び出せません」という意味
 
   def book_params
+    # book_paramsではフォームで入力されたデータを受け取る
     params.require(:book).permit(:title, :body)
+    # paramsはRailsで送られてきた値を受け取るためのメソッド
+    # requireでデータのオブジェクト名(ここでは:list)を指定し、permitでキー（:title,:body）を指定し許可
   end
 
   def ensure_correct_user

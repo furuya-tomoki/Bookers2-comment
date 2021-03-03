@@ -4,13 +4,16 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    # id=1のデータをfindメソッドを利用してデータベースから取得し、@userに格納
     @books = @user.books
     @book = Book.new
+    # 空のインスタンスをView = 「form_with」に渡す
   end
 
   def index
     @users = User.all
     @book = Book.new
+    # 空のインスタンスをView = 「form_with」に渡す
   end
 
   def edit
