@@ -1,6 +1,8 @@
 class BooksController < ApplicationController
    before_action :authenticate_user!
+   #  ログインしていない場合にログインページにリダイレクトさせる
   before_action :ensure_correct_user, only: [:edit, :update, :destroy]
+  # # 投稿者だけが編集・保存・削除できる
 
   def show
     @book = Book.find(params[:id])
@@ -39,6 +41,7 @@ class BooksController < ApplicationController
 
   def update
     if @book.update(book_params)
+      # if 無事にsaveできれば、リダイレクト実行
       redirect_to book_path(@book), notice: "You have updated book successfully."
     else
       render "edit"
@@ -61,8 +64,10 @@ class BooksController < ApplicationController
   end
 
   def ensure_correct_user
+    # 投稿者だけが編集できる
     @book = Book.find(params[:id])
     unless @book.user == current_user
+   # unless文 → もしも、評価が偽(false)であれば○○する
       redirect_to books_path
     end
   end

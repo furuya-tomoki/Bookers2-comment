@@ -1,3 +1,4 @@
+<!-- 全体に反映するview -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -9,12 +10,16 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
+    <!-- headerの貼り付け -->
     <%= render 'layouts/header' %>
       <main>
+         <!-- noticeの呼び出し -->
         <p id="notice"><%= notice %></p>
         <%= yield %>
-        <!-- yield がないと、各ページの内容を表示できません。 -->
+        <!-- yield がないと、各ページの内容を表示ができない -->
       </main>
+      <!-- fotterの貼り付け  -->
     <%= render 'layouts/footer' %>
   </body>
 </html>
+<!-- 全体に反映するview -->

@@ -1,6 +1,6 @@
 class Book < ApplicationRecord
   belongs_to :user
-  	# １：Nの関連付け =「1」の値
+  	# １：Nの関連付け =「」の値
 	has_many :favorites, dependent: :destroy
 	has_many :book_comments, dependent: :destroy
 	# １：Nの関連付け =「N」の値
@@ -13,5 +13,6 @@ class Book < ApplicationRecord
 		favorites.where(user_id: user.id).exists?
 		# 投稿がお気に入りしてあるかどうかを判定したいので
 		# インスタンスメソッドなのでビューに送れる[if @book.favorited_by?(current_user)」
+	  # where = 「主キー(id)以外のカラムも指定できる、且つ、複数のレコードも返せる」
 	end
 end

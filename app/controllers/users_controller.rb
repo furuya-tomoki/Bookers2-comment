@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+  # ログインしていない場合にログインページにリダイレクトさせる
   before_action :ensure_correct_user, only: [:edit, :update]
-
+# 投稿者だけが編集・保存できる
   def show
     @user = User.find(params[:id])
     # id=1のデータをfindメソッドを利用してデータベースから取得し、@userに格納
@@ -34,9 +35,12 @@ class UsersController < ApplicationController
   end
 
   def ensure_correct_user
+    # 投稿者だけが編集できる
     @user = User.find(params[:id])
     unless @user == current_user
+       # unless文 → もしも、評価が偽(false)であれば○○する
       redirect_to user_path(current_user)
+      # 投稿者以外のユーザーだったら、リダイレクトへ
     end
   end
 end
